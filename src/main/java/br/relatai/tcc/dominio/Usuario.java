@@ -22,8 +22,7 @@ public class Usuario {
 	public String getId() {return id;}
 	public void setId(String id) {this.id = id;}
 		
-	@NotBlank(message = "O número do celular é obrigatório.")
-	@Field("celular")	
+	@NotBlank(message = "O número do celular é obrigatório.")		
 	public String getCelular() {return celular;}
 	public void setCelular(String celular) {this.celular = celular;}
 			
