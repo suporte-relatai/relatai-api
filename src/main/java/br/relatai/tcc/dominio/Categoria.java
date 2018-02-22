@@ -2,9 +2,7 @@ package br.relatai.tcc.dominio;
 
 import java.time.LocalDate;
 import java.util.List;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -15,9 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Document(collection = "categoria")
 public class Categoria {
 
-	private String id;
-	
-	@Indexed(unique = true)
+	private String id;	
 	private String nome;
 	private String descricao;
 	private boolean situacao;
@@ -25,23 +21,22 @@ public class Categoria {
 	@DBRef
 	private List<Relato> relatos;
 	
+	public Categoria() {}
+	
 	@Id
 	public String getId() {return id;}
 	public void setId(String id) {this.id = id;}
 	
-	@NotBlank(message = "O nome da categoria é obrigatória.")	
 	public String getNome() {return nome;}
 	public void setNome(String nome) {this.nome = nome;}
 	
-	@NotBlank(message = "A descrição é obrigatória.")	
 	public String getDescricao() {return descricao;}
 	public void setDescricao(String descricao) {this.descricao = descricao;}	
 	
 	public boolean isSituacao() {return situacao;}
 	public void setSituacao(boolean situacao) {this.situacao = situacao;}
 	
-	@JsonInclude(Include.NON_NULL)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")	
+	@JsonInclude(Include.NON_NULL) @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")	
 	@Field("data_solicitacao")
 	public LocalDate getDataSolicitacao() {return dataSolicitacao;}
 	public void setDataSolicitacao(LocalDate dataSolicitacao) {this.dataSolicitacao = dataSolicitacao;}
