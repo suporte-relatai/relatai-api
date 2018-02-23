@@ -22,7 +22,7 @@ public class UsuariosServices {
 			u.setCelular(decodificarCelular(u.getCelular()));
 			usuariosDecifrados.add(u);
 		}
-		return usuarios;
+		return usuariosDecifrados;
 	}
 
 	public Usuario buscarPeloCelular(String celular) {	
