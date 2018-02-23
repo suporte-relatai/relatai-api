@@ -19,7 +19,7 @@ public class UsuariosServices {
 		List<Usuario> usuarios = usuariosRepository.findAll();
 		List<Usuario> usuariosDescifrados = new ArrayList<>();
 		for(Usuario u : usuarios) {
-			u.setCelular(descifrarCelular(u.getCelular()));
+			u.setCelular(decodificarCelular(u.getCelular()));
 			usuariosDescifrados.add(u);
 		}
 		return usuarios;
@@ -38,9 +38,9 @@ public class UsuariosServices {
 		return Base64.getEncoder().encodeToString(celular.getBytes());
 	}
 	
-	private String descifrarCelular(String cifra) {
-		byte[] decodedBytes = Base64.getDecoder().decode(cifra);
-		String decodedString = new String(decodedBytes);
-		return decodedString;
+	private String decodificarCelular(String cifra) {
+		byte[] bytesDecodificados = Base64.getDecoder().decode(cifra);
+		String stringDecodificada = new String(bytesDecodificados);
+		return stringDecodificada;
 	}
 }
