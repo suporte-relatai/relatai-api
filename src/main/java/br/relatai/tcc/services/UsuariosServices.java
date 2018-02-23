@@ -1,6 +1,7 @@
 package br.relatai.tcc.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,13 @@ public class UsuariosServices {
 	private UsuariosRepository usuariosRepository;
 	
 	public List<Usuario> listar(){
-		return usuariosRepository.findAll();
+		List<Usuario> usuarios = usuariosRepository.findAll();
+		List<Usuario> usuariosDescifrados = new ArrayList<>();
+		for(Usuario u : usuarios) {
+			u.setCelular(descifrarCelular(u.getCelular()));
+			usuariosDescifrados.add(u);
+		}
+		return usuarios;
 	}
 
 	public Usuario buscarPeloCelular(String celular) {	
@@ -29,5 +36,11 @@ public class UsuariosServices {
 	
 	private String cifrarCelular(String celular) {
 		return Base64.getEncoder().encodeToString(celular.getBytes());
-	}			
+	}
+	
+	private String descifrarCelular(String cifra) {
+		byte[] decodedBytes = Base64.getDecoder().decode(cifra);
+		String decodedString = new String(decodedBytes);
+		return decodedString;
+	}
 }
