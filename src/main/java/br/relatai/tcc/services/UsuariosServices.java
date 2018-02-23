@@ -17,10 +17,10 @@ public class UsuariosServices {
 	
 	public List<Usuario> listar(){
 		List<Usuario> usuarios = usuariosRepository.findAll();
-		List<Usuario> usuariosDescifrados = new ArrayList<>();
+		List<Usuario> usuariosDecifrados = new ArrayList<>();
 		for(Usuario u : usuarios) {
 			u.setCelular(decodificarCelular(u.getCelular()));
-			usuariosDescifrados.add(u);
+			usuariosDecifrados.add(u);
 		}
 		return usuarios;
 	}
