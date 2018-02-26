@@ -19,10 +19,11 @@ public class CategoriasServices {
 	private RelatosServices relatosServices;
 	
 	public List<Categoria> listar(){		
-		return categoriasRepository.findBySituacaoTrue();
+		List<Categoria> categorias = categoriasRepository.findBySituacaoTrue();		
+		return categorias;
 	}
 	
-	public Categoria buscarPorId(String id) {
+	private Categoria buscarPorId(String id) {
 		Categoria categoria = categoriasRepository.findOne(id);		
 		if(categoria == null) {
 			throw new ObjetoNaoEncontradoException("A categoria não pôde ser encontrada.");
@@ -30,14 +31,19 @@ public class CategoriasServices {
 		return categoria;
 	}
 
-	public Categoria buscarPeloNome(String nome) {	
-		Categoria categoria = categoriasRepository.findByNomeIgnoreCaseContainingAndSituacaoTrue(nome);				
-		if(categoria == null) {
-			throw new ObjetoNaoEncontradoException("A categoria não pôde ser encontrada.");
-		}		
-		return categoria;
+	public List<Categoria> buscarDiversasCategorias(List<String> ids) {
+		Categoria categoria = null;
+		List<Categoria> categorias = new ArrayList<>();
+		for(String i : ids) {
+			categoria = categoriasRepository.findOne(i);			
+			if(categoria == null) {
+				throw new ObjetoNaoEncontradoException("A categoria não pôde ser encontrada.");
+			}
+			categorias.add(categoria);
+		}
+		return categorias;
 	}
-	
+		
 	public Categoria salvar(Categoria categoria) {		
 		categoria.setId(null);		
 		return categoriasRepository.save(categoria);
@@ -64,5 +70,6 @@ public class CategoriasServices {
 		}		
 		atualizar(categoria);		
 		return categoria;
-	}
+	}	
 }
+
