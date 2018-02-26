@@ -35,11 +35,11 @@ public class CategoriasResources {
 		return ResponseEntity.created(uri).build();
 	}	
 	
-	@GetMapping(path = "/{nome}")
-	public ResponseEntity<?> buscarPeloNome(@PathVariable String nome) {				
-		CacheControl cacheControl = CacheControl.maxAge(5, TimeUnit.SECONDS);
-		Categoria categoria = categoriasServices.buscarPeloNome(nome);
-		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(categoria);
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<?> buscarPorIdentificadores(@PathVariable List<String> id) {
+		CacheControl cacheControl = CacheControl.maxAge(5, TimeUnit.SECONDS);		
+		List<Categoria> categorias = categoriasServices.buscarDiversasCategorias(id);
+		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(categorias);
 	}
 	
 	@GetMapping
