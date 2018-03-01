@@ -19,7 +19,7 @@ public class CategoriasServices {
 	private RelatosServices relatosServices;
 	
 	public List<Categoria> listar(){		
-		List<Categoria> categorias = categoriasRepository.findBySituacaoTrue();		
+		List<Categoria> categorias = categoriasRepository.findBySituacaoTrueOrderByNomeAsc();		
 		return categorias;
 	}
 	
